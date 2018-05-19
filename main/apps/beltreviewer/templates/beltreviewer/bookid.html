@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <title>Add book and Review</title>
+</head>
+<body>
+    <div class=header>
+        <a href='/books'>Home</a>
+        <a href='/logout'>Logout</a>
+        <h2>{{book.title}}</h2>
+        <h4>{{book.author}}</h4>
+    </div>
+    <div class=left>
+        {% for review in reviews %}
+        <p>{{review.rating}}</p>
+        <p>{{review.user.username}} says: {{review.desc}}</p>
+        <p>{{review.created_at}}</p>
+        
+        {% if review.user_id == request.session.user_id %}
+        
+        <form action='../process' method=POST>
+            {% csrf_token %}
+            <input type=hidden name=action value=delete_review>
+            <input type=hidden name=delreview value={{review.id}}>
+            <input type=submit name=delete value=deletereview>
+        </form>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+    <div class=right>
+        <h3>Add a Review</h3>
+        <form action='../process' method=POST>
+            <input type=hidden name=action value=add_review>
+            <input type=hidden name=bookid value={{book.id}}>
+            {% csrf_token %}
+            <ul>
+                <li><label for=review>Review:</label>
+                <textarea name=desc></textarea></li>
+                <li><label for=rating>Rating:</label>
+                <select name=rating>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                </select></li>
+
+            </ul>
+            <input type=submit name=submit value="Add Book and Review">
+
+        </form>
+        
+
+    </div>
+    
+</body>
+</html>

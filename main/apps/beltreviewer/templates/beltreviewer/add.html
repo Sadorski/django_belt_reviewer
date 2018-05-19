@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Add Book and Review</title>
+</head>
+<body>
+    <div class=header>
+        <a href=/books>Home</a>
+        <a href=/logout>Logout</a>
+    </div>
+    <div class=body>
+        <form action='../process' method=POST>
+            <input type=hidden name=action value=add_book>
+            {% csrf_token %}
+            <ul>
+                <li><label for=title>Book Title:</label>
+                <input type=text name=title></li>
+                <li><label for=authorlist>Choose from the list</label>
+                <select name=authorlist>
+                    <option value="none">None</option>
+                    <option value="jkrowling">J K Rowling</option>
+                    <option value="stephenking">Stephen King</option>
+                    <option value="rlstine">R L Stine</option>
+                </select></li>
+                <li><label for=author>Or add a new author</label>
+                <input type=text name=author></li>
+                <li><label for=review>Review:</label>
+                <textarea name=desc></textarea></li>
+                <li><label for=rating>Rating:</label>
+                <select name=rating>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                </select></li>
+
+            </ul>
+            <input type=submit name=submit value="Add Book and Review">
+            
+        </form>
+    </div>
+    
+</body>
+</html>

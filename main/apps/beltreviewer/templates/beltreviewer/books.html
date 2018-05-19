@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Books Home</title>
+</head>
+<body>
+    <div class=header>
+        <h2>Welcome {{request.session.username}}</h2>
+        <a href='books/add'>Add Book and Review</a>
+        <a href='/logout'>Logout</a>
+    </div>
+    <div class=left>
+        <h2> Recent Book Reviews </h2>
+        {% for review in reviews %}
+        <h3>{{review.book.title}}</h3>
+        <p>{{review.rating}}</p>
+        <p><a href='/users/{{review.user_id}}'>{{review.user.username}}</a>says: {{review.desc}}</p>
+        <p>{{review.created_at}}</p>
+       
+        {% endfor %}
+        
+    </div>
+    <div class=right>
+        <h2>Other Books with Reviews</h2>
+        {% for book in books %}
+        <p><a href='books/{{book.id}}'>{{book.title}}</a></p>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>
